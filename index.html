@@ -239,11 +239,30 @@
     .res-emoji { font-size:1.4rem; margin-bottom:.4rem; }
     .res-label { font-size:.85rem; color:var(--dim); }
 
+    /* ── PLANES DE PAGO ── */
+    .plans-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:.75rem; }
+    .plans-head { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.15em; color:var(--dim); margin-bottom:.6rem; padding-bottom:.5rem; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+    .plans-head strong { color:var(--cream); font-size:.85rem; text-transform:none; letter-spacing:0; }
+    .plan-row { display:flex; align-items:center; justify-content:space-between; padding:.6rem .85rem; border-radius:8px; margin-bottom:.45rem; background:rgba(255,255,255,.03); border:1px solid var(--border); transition:border-color .2s; }
+    .plan-row:hover { border-color:rgba(220,70,51,.35); }
+    .plan-row.best { border-color:rgba(220,70,51,.55); background:rgba(220,70,51,.08); }
+    .plan-row.best-purple { border-color:rgba(201,180,211,.45); background:rgba(201,180,211,.06); }
+    .plan-name { font-size:.85rem; font-weight:600; color:var(--cream); }
+    .plan-sub { font-size:.68rem; color:var(--dim); margin-top:.1rem; }
+    .plan-price { font-size:.95rem; font-weight:800; color:var(--cream); text-align:right; }
+    .plan-total { font-size:.68rem; color:var(--dim); text-align:right; margin-top:.1rem; }
+    .discount-badge { display:inline-block; font-size:.64rem; font-weight:700; padding:.1rem .5rem; border-radius:1rem; margin-left:.45rem; vertical-align:middle; }
+    .badge-green { background:rgba(92,184,92,.15); border:1px solid rgba(92,184,92,.35); color:#6fcf6f; }
+    .badge-red   { background:rgba(220,70,51,.15); border:1px solid rgba(220,70,51,.35); color:var(--red); }
+    .badge-purple{ background:rgba(201,180,211,.15); border:1px solid rgba(201,180,211,.35); color:var(--purple); }
+    .mp-note { display:flex; align-items:center; gap:.5rem; margin-top:.85rem; font-size:.72rem; color:var(--dim); }
+    .mp-dot { width:8px; height:8px; border-radius:50%; background:#00b1ea; flex-shrink:0; }
+
     /* ── QUOTE / THANKS ── */
-    #s11 { align-items:center; justify-content:center; text-align:center; }
+    #s12 { align-items:center; justify-content:center; text-align:center; }
     .quote-line { font-size:clamp(1.6rem,3.5vw,2.8rem); font-weight:700; color:var(--cream); line-height:1.4; }
     .q-hand { font-family:'Caveat',cursive; color:var(--red); font-weight:700; font-size:1.15em; }
-    #s12 { align-items:center; justify-content:center; text-align:center; }
+    #s13 { align-items:center; justify-content:center; text-align:center; }
     .thanks-mark { font-size:clamp(4rem,12vw,9rem); font-weight:900; letter-spacing:.06em; color:var(--cream); }
     .thanks-word { font-family:'Caveat',cursive; font-size:clamp(1.5rem,3vw,2.3rem); color:var(--cream); margin-top:.25rem; }
 
@@ -709,8 +728,138 @@
   </div>
 
 
-  <!-- ══════ S9: ¿CÓMO TRABAJAMOS? ══════ -->
+  <!-- ══════ S9: PLANES DE PAGO ══════ -->
   <div class="slide" id="s9">
+    <div class="slide-logo">DOOKU</div>
+    <div class="sc">
+      <div class="anim" style="margin-bottom:.9rem">
+        <div class="label">Suscripción y compromisos</div>
+        <h2 class="slide-title">Planes de pago</h2>
+      </div>
+
+      <div class="plans-grid anim">
+
+        <!-- GESTIÓN -->
+        <div>
+          <div class="plans-head">
+            Gestión de Cuenta
+            <strong>Base: $400.000/mes + 1% ventas</strong>
+          </div>
+
+          <div class="plan-row">
+            <div>
+              <div class="plan-name">Mensual <span style="font-size:.7rem;color:var(--dim);font-weight:400">(mín. 3 meses)</span></div>
+              <div class="plan-sub">Débito automático · Mercado Pago</div>
+            </div>
+            <div>
+              <div class="plan-price">$400.000<span style="font-size:.7rem;font-weight:400;color:var(--dim)">/mes</span></div>
+              <div class="plan-total">Total 3m: $1.200.000 + 1%</div>
+            </div>
+          </div>
+
+          <div class="plan-row">
+            <div>
+              <div class="plan-name">Semestral <span class="discount-badge badge-green">-8%</span></div>
+              <div class="plan-sub">6 meses · Débito automático · Mercado Pago</div>
+            </div>
+            <div>
+              <div class="plan-price">$368.000<span style="font-size:.7rem;font-weight:400;color:var(--dim)">/mes</span></div>
+              <div class="plan-total">Total 6m: $2.208.000 + 1%</div>
+            </div>
+          </div>
+
+          <div class="plan-row best">
+            <div>
+              <div class="plan-name">Anual <span class="discount-badge badge-green">-15%</span></div>
+              <div class="plan-sub">12 meses · Débito automático · Mercado Pago</div>
+            </div>
+            <div>
+              <div class="plan-price">$340.000<span style="font-size:.7rem;font-weight:400;color:var(--dim)">/mes</span></div>
+              <div class="plan-total">Total 12m: $4.080.000 + 1%</div>
+            </div>
+          </div>
+
+          <div class="plan-row best-purple">
+            <div>
+              <div class="plan-name">Pago Único Anual <span class="discount-badge badge-purple">-20%</span></div>
+              <div class="plan-sub">12 meses · Un solo pago adelantado</div>
+            </div>
+            <div>
+              <div class="plan-price">$320.000<span style="font-size:.7rem;font-weight:400;color:var(--dim)">/mes eq.</span></div>
+              <div class="plan-total">Total: $3.840.000 + 1%</div>
+            </div>
+          </div>
+
+          <div class="mp-note">
+            <div class="mp-dot"></div>
+            Débito automático vía Mercado Pago · Factura mensual
+          </div>
+        </div>
+
+        <!-- CONSULTORÍA -->
+        <div>
+          <div class="plans-head">
+            Consultoría
+            <strong>Base: $500.000/mes</strong>
+          </div>
+
+          <div class="plan-row">
+            <div>
+              <div class="plan-name">Mensual <span style="font-size:.7rem;color:var(--dim);font-weight:400">(mín. 3 meses)</span></div>
+              <div class="plan-sub">Débito automático · Mercado Pago</div>
+            </div>
+            <div>
+              <div class="plan-price">$500.000<span style="font-size:.7rem;font-weight:400;color:var(--dim)">/mes</span></div>
+              <div class="plan-total">Total 3m: $1.500.000</div>
+            </div>
+          </div>
+
+          <div class="plan-row">
+            <div>
+              <div class="plan-name">Semestral <span class="discount-badge badge-green">-8%</span></div>
+              <div class="plan-sub">6 meses · Débito automático · Mercado Pago</div>
+            </div>
+            <div>
+              <div class="plan-price">$460.000<span style="font-size:.7rem;font-weight:400;color:var(--dim)">/mes</span></div>
+              <div class="plan-total">Total 6m: $2.760.000</div>
+            </div>
+          </div>
+
+          <div class="plan-row best">
+            <div>
+              <div class="plan-name">Anual <span class="discount-badge badge-green">-15%</span></div>
+              <div class="plan-sub">12 meses · Débito automático · Mercado Pago</div>
+            </div>
+            <div>
+              <div class="plan-price">$425.000<span style="font-size:.7rem;font-weight:400;color:var(--dim)">/mes</span></div>
+              <div class="plan-total">Total 12m: $5.100.000</div>
+            </div>
+          </div>
+
+          <div class="plan-row best-purple">
+            <div>
+              <div class="plan-name">Pago Único Anual <span class="discount-badge badge-purple">-20%</span></div>
+              <div class="plan-sub">12 meses · Un solo pago adelantado</div>
+            </div>
+            <div>
+              <div class="plan-price">$400.000<span style="font-size:.7rem;font-weight:400;color:var(--dim)">/mes eq.</span></div>
+              <div class="plan-total">Total: $4.800.000</div>
+            </div>
+          </div>
+
+          <div class="mp-note">
+            <div class="mp-dot"></div>
+            Débito automático vía Mercado Pago · Factura mensual
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════ S10: ¿CÓMO TRABAJAMOS? ══════ -->
+  <div class="slide" id="s10">
     <div class="slide-logo">DOOKU</div>
     <div class="sc">
       <div class="anim" style="position:relative;display:inline-block;margin-bottom:1.8rem">
@@ -740,8 +889,8 @@
   </div>
 
 
-  <!-- ══════ S10: PRÓXIMOS PASOS ══════ -->
-  <div class="slide" id="s10">
+  <!-- ══════ S11: PRÓXIMOS PASOS ══════ -->
+  <div class="slide" id="s11">
     <div class="slide-logo">DOOKU</div>
     <div class="sc">
       <div class="anim" style="margin-bottom:1.4rem">
@@ -793,8 +942,8 @@
   </div>
 
 
-  <!-- ══════ S11: QUOTE ══════ -->
-  <div class="slide" id="s11">
+  <!-- ══════ S12: QUOTE ══════ -->
+  <div class="slide" id="s12">
     <div class="slide-logo">DOOKU</div>
     <div style="flex:1;display:flex;align-items:center;justify-content:center;text-align:center">
       <div class="anim">
@@ -819,8 +968,8 @@
   </div>
 
 
-  <!-- ══════ S12: GRACIAS ══════ -->
-  <div class="slide" id="s12">
+  <!-- ══════ S13: GRACIAS ══════ -->
+  <div class="slide" id="s13">
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
       <div class="thanks-mark anim">DOOKU</div>
       <div class="anim" style="position:relative;display:inline-block;margin-top:.5rem">
@@ -838,14 +987,14 @@
 
 <!-- Nav -->
 <div id="navDots"></div>
-<div id="slideCounter">01 / 13</div>
+<div id="slideCounter">01 / 14</div>
 <div class="nav-arrows">
   <button class="nav-btn" id="prevBtn">‹</button>
   <button class="nav-btn" id="nextBtn">›</button>
 </div>
 
 <script>
-  const TOTAL = 13;
+  const TOTAL = 14;
   let cur = 0;
 
   const slides  = document.querySelectorAll('.slide');
