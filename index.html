@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dooku — Servicios E-Commerce</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark:   #1E1D1B;
+      --red:    #DC4633;
+      --cream:  #F1EAE6;
+      --purple: #C9B4D3;
+      --dim:    rgba(241,234,230,.55);
+      --border: rgba(241,234,230,.12);
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html, body {
+      width:100%; height:100%;
+      overflow:hidden;
+      background:var(--dark);
+      font-family:'Inter',sans-serif;
+      color:var(--cream);
+      -webkit-font-smoothing:antialiased;
+    }
+
+    #deck { position:relative; width:100%; height:100vh; overflow:hidden; }
+
+    .slide {
+      position:absolute; inset:0;
+      display:flex; flex-direction:column;
+      padding:2rem 5vw;
+      background:var(--dark);
+      opacity:0; pointer-events:none;
+      transition:opacity .4s cubic-bezier(.4,0,.2,1);
+    }
+    .slide.active { opacity:1; pointer-events:all; }
+    .slide.active .anim { animation:fadeUp .5s ease both; }
+    .slide.active .anim:nth-child(2){ animation-delay:.08s; }
+    .slide.active .anim:nth-child(3){ animation-delay:.16s; }
+    .slide.active .anim:nth-child(4){ animation-delay:.24s; }
+    .slide.active .anim:nth-child(5){ animation-delay:.32s; }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(16px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ── HEADER LOGO ── */
+    .slide-logo {
+      position:absolute; top:1.4rem; left:50%; transform:translateX(-50%);
+      font-weight:900; font-size:1rem; letter-spacing:.2em; color:var(--cream); opacity:.8;
+    }
+
+    /* ── NAV ── */
+    #navDots {
+      position:fixed; bottom:1.6rem; left:50%; transform:translateX(-50%);
+      display:flex; gap:.45rem; z-index:200;
+    }
+    .dot {
+      width:7px; height:7px; border-radius:50%;
+      background:rgba(241,234,230,.25); cursor:pointer;
+      transition:background .25s, transform .25s;
+    }
+    .dot.active { background:var(--red); transform:scale(1.3); }
+    #slideCounter {
+      position:fixed; bottom:1.6rem; left:4vw;
+      font-size:.7rem; color:rgba(241,234,230,.35); z-index:200; letter-spacing:.1em;
+    }
+    .nav-arrows {
+      position:fixed; bottom:1.2rem; right:4vw;
+      display:flex; gap:.6rem; z-index:200;
+    }
+    .nav-btn {
+      width:36px; height:36px; border-radius:50%;
+      border:1.5px solid rgba(241,234,230,.25);
+      background:none; color:var(--cream); cursor:pointer;
+      font-size:1.1rem; display:flex; align-items:center; justify-content:center;
+      transition:border-color .2s, color .2s;
+    }
+    .nav-btn:hover { border-color:var(--red); color:var(--red); }
+
+    /* ── CONTENT WRAPPER ── */
+    .sc { margin-top:3.8rem; flex:1; display:flex; flex-direction:column; }
+
+    /* ── TYPOGRAPHY ── */
+    .slide-title {
+      font-size:clamp(1.8rem,3.5vw,2.8rem);
+      font-weight:800; color:var(--cream); line-height:1.15;
+    }
+    .label {
+      font-size:.68rem; text-transform:uppercase;
+      letter-spacing:.2em; color:var(--red); margin-bottom:.45rem;
+    }
+
+    /* ── ASTERISK SVG shortcut ── */
+    .ast { display:inline-block; flex-shrink:0; }
+
+    /* ── STAT CARDS (slide 2) ── */
+    .stats-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:1rem;
+      margin-top:1.2rem;
+    }
+    .stat-card {
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--border);
+      border-radius:12px; padding:1.25rem 1.1rem;
+    }
+    .stat-card.accent { border-color:rgba(220,70,51,.45); background:rgba(220,70,51,.07); }
+    .stat-num {
+      font-size:clamp(1.6rem,2.8vw,2.2rem);
+      font-weight:900; color:var(--cream); line-height:1;
+    }
+    .stat-num span { color:var(--red); }
+    .stat-label { font-size:.82rem; color:var(--dim); margin-top:.4rem; line-height:1.4; }
+
+    /* ── ROADMAP (slide 3) ── */
+    .roadmap {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:0; margin-top:1.2rem; position:relative;
+    }
+    .roadmap::before {
+      content:'';
+      position:absolute; top:28px; left:calc(12.5%); right:calc(12.5%);
+      height:2px; background:rgba(220,70,51,.35);
+      z-index:0;
+    }
+    .rm-step { display:flex; flex-direction:column; align-items:center; padding:0 .5rem; position:relative; z-index:1; }
+    .rm-dot {
+      width:22px; height:22px; border-radius:50%;
+      border:2.5px solid var(--red); background:var(--dark);
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:.75rem; flex-shrink:0;
+    }
+    .rm-dot.filled { background:var(--red); }
+    .rm-dot svg { width:10px; height:10px; }
+    .rm-phase {
+      font-size:.65rem; text-transform:uppercase; letter-spacing:.15em;
+      color:var(--red); text-align:center; margin-bottom:.3rem;
+    }
+    .rm-title {
+      font-size:.88rem; font-weight:700; color:var(--cream);
+      text-align:center; margin-bottom:.5rem; line-height:1.3;
+    }
+    .rm-list {
+      list-style:none; display:flex; flex-direction:column; gap:.3rem;
+    }
+    .rm-list li {
+      font-size:.74rem; color:var(--dim); line-height:1.45;
+      padding-left:.85rem; position:relative;
+    }
+    .rm-list li::before { content:'—'; position:absolute; left:0; color:var(--red); }
+
+    /* ── BULLET LIST ── */
+    .bullet-list { list-style:none; display:flex; flex-direction:column; gap:1.2rem; }
+    .bullet-list li {
+      display:flex; align-items:flex-start; gap:.9rem;
+      font-size:clamp(.95rem,1.8vw,1.2rem); line-height:1.55;
+    }
+
+    /* ── TERMINAL BOX ── */
+    .terminal { border:2px solid var(--red); border-radius:12px; max-width:860px; width:100%; overflow:hidden; filter:url(#rough); }
+    .terminal-head { display:flex; align-items:center; padding:.7rem 1.25rem; border-bottom:1.5px solid rgba(220,70,51,.35); }
+    .t-dot { width:13px; height:13px; border-radius:50%; background:var(--red); margin-right:.75rem; flex-shrink:0; }
+    .t-title { font-size:.95rem; color:var(--cream); flex:1; }
+    .t-nav { display:flex; gap:.4rem; }
+    .t-nav span { width:26px; height:26px; border:1.5px solid var(--red); border-radius:5px; display:flex; align-items:center; justify-content:center; color:var(--red); font-size:.75rem; }
+    .terminal-body { padding:1rem 1.5rem; display:flex; flex-direction:column; gap:.55rem; }
+    .terminal-body li { display:flex; align-items:center; gap:.6rem; font-size:clamp(.8rem,1.4vw,.95rem); color:var(--cream); list-style:none; }
+    .terminal-body li::before { content:'•'; color:var(--red); font-size:1.1rem; flex-shrink:0; }
+
+    /* ── COMPARISON TABLE (slide 8) ── */
+    .compare-wrap { overflow-x:auto; margin-top:1rem; }
+    .compare {
+      width:100%; border-collapse:collapse;
+      font-size:clamp(.78rem,1.35vw,.92rem);
+    }
+    .compare th {
+      padding:.75rem 1.1rem; text-align:left;
+      font-weight:700; border-bottom:1.5px solid rgba(220,70,51,.5);
+    }
+    .compare th.col-feat { color:var(--dim); font-weight:500; width:40%; }
+    .compare th.col-g { color:var(--cream); background:rgba(255,255,255,.04); text-align:center; }
+    .compare th.col-c { color:var(--red); background:rgba(220,70,51,.08); text-align:center; }
+    .compare td { padding:.65rem 1.1rem; border-bottom:1px solid var(--border); }
+    .compare td.col-feat { color:var(--dim); }
+    .compare td.col-g { text-align:center; background:rgba(255,255,255,.025); }
+    .compare td.col-c { text-align:center; background:rgba(220,70,51,.04); }
+    .compare tr:last-child td { border-bottom:none; }
+    .check { color:#4CAF50; font-size:1rem; }
+    .cross { color:rgba(241,234,230,.25); font-size:.9rem; }
+    .badge-pill {
+      display:inline-block; background:rgba(220,70,51,.18);
+      border:1px solid rgba(220,70,51,.4); border-radius:1rem;
+      padding:.2rem .75rem; font-size:.72rem; color:var(--cream);
+    }
+
+    /* ── PRICING ── */
+    .pricing-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; max-width:820px; width:100%; }
+    .p-card { border:1.5px solid rgba(220,70,51,.45); border-radius:14px; padding:1.75rem; background:rgba(255,255,255,.03); }
+    .p-card.featured { border-color:var(--red); background:rgba(220,70,51,.07); }
+    .p-type { font-size:.68rem; text-transform:uppercase; letter-spacing:.18em; color:var(--red); margin-bottom:.4rem; }
+    .p-name { font-size:1.1rem; font-weight:700; color:var(--cream); margin-bottom:1.25rem; line-height:1.3; }
+    .p-amount { font-size:clamp(1.7rem,2.8vw,2.3rem); font-weight:900; color:var(--cream); line-height:1; }
+    .p-iva { font-size:.72rem; color:rgba(241,234,230,.45); margin-top:.2rem; }
+    .p-extra { margin-top:1rem; padding-top:1rem; border-top:1px solid rgba(255,255,255,.1); font-size:.82rem; color:var(--dim); }
+    .p-note { font-size:.72rem; color:rgba(241,234,230,.4); margin-top:.5rem; font-style:italic; }
+
+    /* ── HOW CARDS ── */
+    .how-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; width:100%; }
+    .h-card { background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:12px; padding:1.35rem; }
+    .h-card-title { font-size:.95rem; font-weight:700; color:var(--cream); margin:.6rem 0 .45rem; }
+    .h-card-text { font-size:.8rem; line-height:1.6; color:var(--dim); }
+
+    /* ── QUOTE / THANKS ── */
+    #s10 { align-items:center; justify-content:center; text-align:center; }
+    .quote-line { font-size:clamp(1.6rem,3.5vw,2.8rem); font-weight:700; color:var(--cream); line-height:1.4; }
+    .q-hand { font-family:'Caveat',cursive; color:var(--red); font-weight:700; font-size:1.15em; }
+    #s11 { align-items:center; justify-content:center; text-align:center; }
+    .thanks-mark { font-size:clamp(4rem,12vw,9rem); font-weight:900; letter-spacing:.06em; color:var(--cream); }
+    .thanks-word { font-family:'Caveat',cursive; font-size:clamp(1.5rem,3vw,2.3rem); color:var(--cream); margin-top:.25rem; }
+
+    /* ── DECO ── */
+    .deco { position:absolute; pointer-events:none; }
+    .footnote { position:absolute; bottom:.9rem; left:0; right:0; text-align:center; font-size:.65rem; color:rgba(241,234,230,.35); padding:0 5vw; }
+    .hw { font-family:'Caveat',cursive; }
+
+    /* ── RESULTS ROW ── */
+    .results-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:1.4rem; }
+    .res-card { background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:10px; padding:1.1rem 1rem; text-align:center; }
+    .res-emoji { font-size:1.4rem; margin-bottom:.4rem; }
+    .res-label { font-size:.85rem; color:var(--dim); }
+  </style>
+</head>
+<body>
+
+<!-- SVG filters -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="4" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<div id="deck">
+
+  <!-- ══════ SLIDE 1: COVER ══════ -->
+  <div class="slide active" id="s0">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+      <div class="anim">
+        <div style="font-size:clamp(4.5rem,11vw,9rem);font-weight:900;letter-spacing:.06em;color:var(--cream);line-height:1">DOOKU</div>
+        <div style="font-size:clamp(.75rem,1.4vw,1rem);font-weight:300;letter-spacing:.45em;color:var(--cream);text-transform:uppercase;margin-top:.3rem;opacity:.75">NUEVOS HORIZONTES</div>
+      </div>
+      <div class="anim" style="font-size:clamp(1.4rem,2.5vw,2rem);font-weight:400;margin:2rem 0 1.6rem;color:var(--cream)">
+        Consultora de E-Commerce
+      </div>
+      <div class="anim" style="display:flex;align-items:center;gap:1.5rem;justify-content:center">
+        <div style="background:#FFE600;color:#222;border-radius:6px;padding:.45rem 1.1rem;font-size:.82rem;font-weight:700;display:flex;align-items:center;gap:.45rem">
+          <svg width="18" height="18" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#FFE600"/><path d="M8 12.5l2.5 2.5 5-6" stroke="#222" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Consultora Certificada Gold
+        </div>
+        <div style="width:1px;height:38px;background:var(--border)"></div>
+        <div style="display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:var(--dim)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 2c-4 4-4 16 0 20M12 2c4 4 4 16 0 20M2 12h20"/></svg>
+          www.dooku.com.ar
+        </div>
+      </div>
+    </div>
+    <svg class="deco" style="bottom:18%;right:6%;width:52px;opacity:.55" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round"/></svg>
+    <svg class="deco" style="top:20%;left:4%;width:34px;opacity:.35" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2" stroke-linecap="round"/></svg>
+  </div>
+
+
+  <!-- ══════ SLIDE 2: POR QUÉ MELI ══════ -->
+  <div class="slide" id="s1">
+    <div class="slide-logo">DOOKU</div>
+    <div class="sc">
+      <div class="anim" style="margin-bottom:1.4rem">
+        <div class="label">El canal</div>
+        <h2 class="slide-title">
+          ¿Por qué vender en
+          <span style="position:relative;display:inline-block">
+            Mercado Libre?
+            <svg viewBox="0 0 320 14" width="280" style="position:absolute;bottom:-7px;left:0;pointer-events:none" fill="none">
+              <path d="M6 7C60 2 130 12 200 7C260 3 295 10 314 7" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+          </span>
+        </h2>
+      </div>
+
+      <div class="stats-grid anim">
+        <div class="stat-card accent">
+          <div class="stat-num">35<span>M+</span></div>
+          <div class="stat-label">compradores activos en Argentina</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="stat-num">+<span>60</span>%</div>
+          <div class="stat-label">del e-commerce argentino pasa por MELI</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="stat-num">24<span>/7</span></div>
+          <div class="stat-label">canal activo sin depender de redes sociales</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" style="font-size:1.4rem">FLEX <span>&</span> FULL</div>
+          <div class="stat-label">logística nacional integrada sin estructura propia</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" style="font-size:1.4rem"><span>$</span> Cuotas</div>
+          <div class="stat-label">Mercado Pago facilita la conversión con financiamiento</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" style="font-size:1.4rem">SEO <span>↑</span></div>
+          <div class="stat-label">tus publicaciones aparecen en Google orgánicamente</div>
+        </div>
+      </div>
+    </div>
+    <svg class="deco" style="top:10%;right:4%;width:50px;opacity:.5" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round"/></svg>
+  </div>
+
+
+  <!-- ══════ SLIDE 3: ROADMAP ══════ -->
+  <div class="slide" id="s2">
+    <div class="slide-logo">DOOKU</div>
+    <div class="sc">
+      <div class="anim" style="margin-bottom:1.6rem">
+        <div class="label">Tu camino en la plataforma</div>
+        <h2 class="slide-title">Roadmap del vendedor en MELI</h2>
+      </div>
+
+      <div class="roadmap anim">
+
+        <div class="rm-step">
+          <div class="rm-dot filled">
+            <svg viewBox="0 0 10 10" fill="white"><circle cx="5" cy="5" r="3"/></svg>
+          </div>
+          <div class="rm-phase">Mes 1</div>
+          <div class="rm-title">Lanzamiento</div>
+          <ul class="rm-list">
+            <li>Apertura y configuración de cuenta</li>
+            <li>Carga de primeras publicaciones</li>
+            <li>Definición de categorías y pricing</li>
+            <li>Setup logístico (envío estándar)</li>
+            <li>Primeras ventas y reputación inicial</li>
+          </ul>
+        </div>
+
+        <div class="rm-step">
+          <div class="rm-dot filled">
+            <svg viewBox="0 0 10 10" fill="white"><circle cx="5" cy="5" r="3"/></svg>
+          </div>
+          <div class="rm-phase">Mes 2 — 3</div>
+          <div class="rm-title">Optimización</div>
+          <ul class="rm-list">
+            <li>Optimización de fichas y títulos</li>
+            <li>Primeras campañas de Publicidad</li>
+            <li>Reviews y reputación verde</li>
+            <li>Análisis de competidores</li>
+            <li>Activación FLEX o FULL</li>
+          </ul>
+        </div>
+
+        <div class="rm-step">
+          <div class="rm-dot">
+            <svg viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="2.5" stroke="white" stroke-width="1"/></svg>
+          </div>
+          <div class="rm-phase">Mes 3 — 6</div>
+          <div class="rm-title">Crecimiento</div>
+          <ul class="rm-list">
+            <li>Escalar publicidad (Mercado Ads)</li>
+            <li>Estrategia de precios y márgenes</li>
+            <li>Ampliación de catálogo</li>
+            <li>Análisis de KPIs mensuales</li>
+            <li>Reputación MercadoLíder</li>
+          </ul>
+        </div>
+
+        <div class="rm-step">
+          <div class="rm-dot">
+            <svg viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="2.5" stroke="white" stroke-width="1"/></svg>
+          </div>
+          <div class="rm-phase">Mes 6 — 12+</div>
+          <div class="rm-title">Escalabilidad</div>
+          <ul class="rm-list">
+            <li>Posicionamiento de marca</li>
+            <li>Tienda oficial en MELI</li>
+            <li>Automatización operativa</li>
+            <li>Acciones estacionales (HotSale, CyberMonday)</li>
+            <li>Canal predecible y rentable</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="anim" style="margin-top:1.5rem;padding:1rem 1.25rem;background:rgba(220,70,51,.08);border:1px solid rgba(220,70,51,.3);border-radius:10px;font-size:.82rem;color:var(--dim);max-width:860px">
+        <svg width="16" height="16" viewBox="0 0 50 50" fill="none" style="display:inline;vertical-align:middle;margin-right:6px">
+          <path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+        <strong style="color:var(--cream)">Con Dooku</strong>, no transitás este camino solo. Aceleramos cada fase con estrategia, ejecución y seguimiento permanente.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════ SLIDE 4: NUESTRA EXPERIENCIA ══════ -->
+  <div class="slide" id="s3">
+    <div class="slide-logo">DOOKU</div>
+    <div class="sc">
+      <div class="anim" style="margin-bottom:2rem">
+        <h2 class="slide-title">
+          Nuestra
+          <span style="position:relative;display:inline-block">
+            experiencia
+            <svg viewBox="0 0 220 64" width="220" style="position:absolute;top:-8px;left:-12px;pointer-events:none" fill="none">
+              <ellipse cx="110" cy="32" rx="106" ry="28" stroke="#DC4633" stroke-width="2" stroke-dasharray="4 2" stroke-linecap="round" fill="none"/>
+            </svg>
+          </span>
+          <span style="color:var(--red);font-family:'Caveat',cursive;font-size:.85em"> !</span>
+        </h2>
+      </div>
+      <ul class="bullet-list">
+        <li class="anim">
+          <svg class="ast" width="26" height="26" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.8" stroke-linecap="round"/></svg>
+          Somos una <strong>Consultora Certificada Gold</strong> de Mercado Libre.
+        </li>
+        <li class="anim">
+          <svg class="ast" width="26" height="26" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.8" stroke-linecap="round"/></svg>
+          Formamos parte del proyecto <strong>"Fabricantes de Moda"</strong> con Mercado Libre, asesorando a más de 100 clientes.
+        </li>
+        <li class="anim">
+          <svg class="ast" width="26" height="26" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.8" stroke-linecap="round"/></svg>
+          Además de consultores, somos <strong>sellers de tecnología Top 5 de Argentina</strong>.
+        </li>
+      </ul>
+    </div>
+    <svg class="deco" style="top:12%;right:4%;width:58px;opacity:.6" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <svg class="deco" style="bottom:22%;right:10%;width:38px;opacity:.4" viewBox="0 0 50 50" fill="none"><path d="M25 6v38M6 25h38M10 10l30 30M40 10 10 40" stroke="#DC4633" stroke-width="2" stroke-linecap="round"/></svg>
+  </div>
+
+
+  <!-- ══════ SLIDE 5: CÓMO TRABAJAMOS ══════ -->
+  <div class="slide" id="s4">
+    <div class="slide-logo">DOOKU</div>
+    <div class="sc">
+      <div class="anim" style="position:relative;display:inline-block;margin-bottom:1.5rem">
+        <h2 class="slide-title">Cómo trabajamos</h2>
+        <svg viewBox="0 0 380 14" width="280" style="position:absolute;bottom:-6px;left:0;pointer-events:none" fill="none">
+          <path d="M8 7C60 2 120 12 180 6C240 1 300 11 372 6" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="anim" style="display:flex;align-items:flex-start;gap:.9rem;max-width:860px;margin-bottom:1.6rem">
+        <svg width="24" height="24" viewBox="0 0 50 50" fill="none" style="flex-shrink:0;margin-top:3px"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.8" stroke-linecap="round"/></svg>
+        <p style="font-size:clamp(.9rem,1.7vw,1.15rem);line-height:1.65">
+          Liberamos al cliente de la complejidad operativa del Ecommerce. Vos te enfocás en tu negocio, <strong>nosotros hacemos crecer tus ventas</strong> de forma rentable y sostenible.
+        </p>
+      </div>
+      <div class="anim" style="display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:1.2rem">
+        <span style="background:rgba(220,70,51,.12);border:1px solid rgba(220,70,51,.35);border-radius:2rem;padding:.4rem 1.1rem;font-size:.82rem">Estrategia</span>
+        <span style="background:rgba(220,70,51,.12);border:1px solid rgba(220,70,51,.35);border-radius:2rem;padding:.4rem 1.1rem;font-size:.82rem">Ejecución</span>
+        <span style="background:rgba(220,70,51,.12);border:1px solid rgba(220,70,51,.35);border-radius:2rem;padding:.4rem 1.1rem;font-size:.82rem">Seguimiento</span>
+        <span style="background:rgba(220,70,51,.12);border:1px solid rgba(220,70,51,.35);border-radius:2rem;padding:.4rem 1.1rem;font-size:.82rem">Mercado Libre B2C</span>
+      </div>
+      <div class="results-row anim">
+        <div class="res-card"><div class="res-emoji">📈</div><div class="res-label">Más ventas</div></div>
+        <div class="res-card"><div class="res-emoji">🎯</div><div class="res-label">Mejor conversión</div></div>
+        <div class="res-card"><div class="res-emoji">⚙️</div><div class="res-label">Operación optimizada</div></div>
+        <div class="res-card"><div class="res-emoji">🌱</div><div class="res-label">Crecimiento sostenible</div></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════ SLIDE 6: GESTIÓN DE CUENTA ══════ -->
+  <div class="slide" id="s5">
+    <div class="slide-logo">DOOKU</div>
+    <div class="sc">
+      <h2 class="slide-title anim" style="margin-bottom:1.4rem">Gestión de Cuenta: Mercado Libre</h2>
+      <div class="terminal anim">
+        <div class="terminal-head">
+          <div class="t-dot"></div>
+          <span class="t-title">Gestión total de Mercado Libre</span>
+          <div class="t-nav"><span>‹</span><span>›</span></div>
+        </div>
+        <ul class="terminal-body">
+          <li>Definición de objetivos de venta y crecimiento</li>
+          <li>Análisis del negocio, competencia y categoría</li>
+          <li>Planificación de acciones comerciales y estacionales</li>
+          <li>Armado y seguimiento de Publicaciones*</li>
+          <li>Estrategias de ventas y escalabilidad</li>
+          <li>Creación, Seguimiento y Optimización de Publicidad</li>
+          <li>Asesoramiento en logística, envíos FLEX y FULL</li>
+          <li>Gestión de reclamos y atención estratégica al cliente</li>
+          <li>Mejora de procesos internos del canal</li>
+          <li>Gestión Activa: Pre Venta y Post venta</li>
+        </ul>
+      </div>
+      <div class="footnote">*el cliente provee la información en drive compartido / grupo de whatsapp</div>
+    </div>
+  </div>
+
+
+  <!-- ══════ SLIDE 7: CONSULTORÍA ══════ -->
+  <div class="slide" id="s6">
+    <div class="slide-logo">DOOKU</div>
+    <div class="sc">
+      <h2 class="slide-title anim" style="margin-bottom:1.4rem">Consultoría Ecommerce</h2>
+      <div class="terminal anim">
+        <div class="terminal-head">
+          <div class="t-dot"></div>
+          <span class="t-title">Servicio Integral de Asesoría</span>
+          <div class="t-nav"><span>‹</span><span>›</span></div>
+        </div>
+        <ul class="terminal-body">
+          <li>Optimización de Conversión</li>
+          <li>Estrategia de Pricing y Margen</li>
+          <li>Gestión y Optimización de Publicidad (Mercado Ads)</li>
+          <li>Capacitación del uso de la plataforma</li>
+          <li>Gestión de Full y Logística</li>
+          <li>Rentabilidad y Análisis de KPIs</li>
+          <li>Análisis de Competidores y Mercado</li>
+          <li>Estrategia Comercial y Escalabilidad</li>
+          <li>Seguimiento y Control Permanente</li>
+          <li>Contacto constante por Grupo de Whatsapp</li>
+          <li>Reuniones cada 15 días: Cierre de Mes y monitoreo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════ SLIDE 8: COMPARATIVA ══════ -->
+  <div class="slide" id="s7">
+    <div class="slide-logo">DOOKU</div>
+    <div class="sc">
+      <div class="anim" style="margin-bottom:1.2rem">
+        <div class="label">¿Cuál es para mí?</div>
+        <h2 class="slide-title">Diferencias entre servicios</h2>
+      </div>
+      <div class="compare-wrap anim">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th class="col-feat"></th>
+              <th class="col-g">Gestión de Cuenta</th>
+              <th class="col-c">Consultoría</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="col-feat">¿Quién ejecuta el día a día?</td>
+              <td class="col-g"><span class="badge-pill">Equipo Dooku</span></td>
+              <td class="col-c"><span class="badge-pill">El cliente</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Estrategia y planificación</td>
+              <td class="col-g"><span class="check">✓</span></td>
+              <td class="col-c"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Carga y gestión de publicaciones</td>
+              <td class="col-g"><span class="check">✓</span></td>
+              <td class="col-c"><span class="cross">—</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Gestión de publicidad (Mercado Ads)</td>
+              <td class="col-g"><span class="check">✓</span></td>
+              <td class="col-c"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Atención al cliente y reclamos</td>
+              <td class="col-g"><span class="check">✓</span></td>
+              <td class="col-c"><span class="cross">—</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Capacitación en la plataforma</td>
+              <td class="col-g"><span class="cross">—</span></td>
+              <td class="col-c"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Análisis de KPIs y reportes</td>
+              <td class="col-g"><span class="check">✓</span></td>
+              <td class="col-c"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Reuniones cada 15 días</td>
+              <td class="col-g"><span class="check">✓</span></td>
+              <td class="col-c"><span class="check">✓</span></td>
+            </tr>
+            <tr>
+              <td class="col-feat">Fee variable sobre ventas</td>
+              <td class="col-g" style="color:var(--dim);font-size:.82rem">1% de ventas/mes</td>
+              <td class="col-c" style="color:var(--dim);font-size:.82rem">Sin fee variable</td>
+            </tr>
+            <tr>
+              <td class="col-feat" style="font-weight:600;color:var(--cream)">Precio mensual</td>
+              <td class="col-g" style="font-weight:800;color:var(--cream)">$400.000 + IVA</td>
+              <td class="col-c" style="font-weight:800;color:var(--red)">$500.000 + IVA</td>
+            </tr>
+            <tr>
+              <td class="col-feat">Ideal para...</td>
+              <td class="col-g" style="font-size:.78rem;color:var(--dim)">Quien quiere <strong style="color:var(--cream)">delegar</strong> la operación completa</td>
+              <td class="col-c" style="font-size:.78rem;color:var(--dim)">Quien quiere <strong style="color:var(--cream)">aprender</strong> y tomar las riendas</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════ SLIDE 9: COSTOS ══════ -->
+  <div class="slide" id="s8">
+    <div class="slide-logo">DOOKU</div>
+    <div class="sc">
+      <div class="anim" style="position:relative;display:inline-block;margin-bottom:2rem">
+        <h2 class="slide-title">Costos del Servicio</h2>
+        <svg viewBox="0 0 360 18" width="300" style="position:absolute;bottom:-10px;left:0;pointer-events:none" fill="none">
+          <path d="M6 9 C36 4 72 14 108 8 C144 3 180 13 216 8 C252 3 288 13 354 9" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M6 13 C36 8 72 18 108 12 C144 7 180 17 216 12 C252 7 288 17 354 13" stroke="#DC4633" stroke-width="1.4" stroke-linecap="round" opacity=".55"/>
+        </svg>
+      </div>
+      <div class="pricing-grid anim">
+        <div class="p-card">
+          <div class="p-type">Tier 1</div>
+          <div class="p-name">Gestión de Cuenta<br>Mercado Libre</div>
+          <div style="display:flex;align-items:flex-start;gap:.7rem">
+            <svg width="20" height="20" viewBox="0 0 50 50" fill="none" style="flex-shrink:0;margin-top:4px"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="3" stroke-linecap="round"/></svg>
+            <div>
+              <div style="font-size:.72rem;color:var(--dim);margin-bottom:.2rem">Fee Fijo</div>
+              <div class="p-amount">$400.000</div>
+              <div class="p-iva">+ IVA / mes</div>
+            </div>
+          </div>
+          <div class="p-extra">
+            <svg width="18" height="18" viewBox="0 0 50 50" fill="none" style="display:inline;vertical-align:middle;margin-right:5px"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="3" stroke-linecap="round"/></svg>
+            Fee Variable: 1% de ventas / mes
+          </div>
+          <div class="p-note">Factura mensual · abono a mes vencido por transferencia.</div>
+        </div>
+        <div class="p-card featured">
+          <div class="p-type">Tier 2</div>
+          <div class="p-name">Consultoría<br>Mercado Libre</div>
+          <div style="display:flex;align-items:flex-start;gap:.7rem">
+            <svg width="20" height="20" viewBox="0 0 50 50" fill="none" style="flex-shrink:0;margin-top:4px"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="3" stroke-linecap="round"/></svg>
+            <div>
+              <div style="font-size:.72rem;color:var(--dim);margin-bottom:.2rem">Fee Fijo</div>
+              <div class="p-amount">$500.000</div>
+              <div class="p-iva">+ IVA / mes</div>
+            </div>
+          </div>
+          <div class="p-extra" style="color:rgba(241,234,230,.45);font-size:.78rem">Sin fee variable — precio fijo mensual.</div>
+          <div class="p-note">Factura mensual · abono a mes vencido por transferencia.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════ SLIDE 10: ¿CÓMO TRABAJAMOS? ══════ -->
+  <div class="slide" id="s9">
+    <div class="slide-logo">DOOKU</div>
+    <div class="sc">
+      <div class="anim" style="position:relative;display:inline-block;margin-bottom:1.8rem">
+        <h2 class="slide-title">¿Cómo trabajamos?</h2>
+        <svg viewBox="0 0 420 14" width="340" style="position:absolute;bottom:-7px;left:0;pointer-events:none" fill="none">
+          <path d="M8 7 C70 2 140 12 210 7 C280 2 350 11 412 7" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="how-grid anim">
+        <div class="h-card">
+          <svg width="30" height="30" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <div class="h-card-title">Grupo de contacto</div>
+          <div class="h-card-text">Al comenzar se crea un grupo de WhatsApp con el equipo Dooku. Disponibles de <strong>lunes a viernes de 9 a 18 hs</strong> para consultas y temas operativos.</div>
+        </div>
+        <div class="h-card">
+          <svg width="30" height="30" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <div class="h-card-title">Reuniones quincenales</div>
+          <div class="h-card-text">Nos reunimos <strong>cada 15 días</strong> para brindar feedback, análisis y accionables concretos. Cada punto se revisa en la reunión siguiente.</div>
+        </div>
+        <div class="h-card">
+          <svg width="30" height="30" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <div class="h-card-title">Reportes mensuales</div>
+          <div class="h-card-text">Todos los meses compartimos un reporte con las <strong>métricas clave</strong> de la cuenta y recomendaciones accionables para el mes siguiente.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════ SLIDE 11: QUOTE ══════ -->
+  <div class="slide" id="s10">
+    <div class="slide-logo">DOOKU</div>
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;text-align:center">
+      <div class="anim">
+        <div class="quote-line">
+          El&nbsp;
+          <span style="position:relative;display:inline-block">futuro
+            <svg viewBox="0 0 150 60" width="150" style="position:absolute;top:-10px;left:-12px;pointer-events:none" fill="none">
+              <ellipse cx="75" cy="30" rx="72" ry="26" stroke="#C9B4D3" stroke-width="2" fill="none" stroke-dasharray="5 2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          &nbsp;no está&nbsp;
+          <span style="position:relative;display:inline-block">escrito.
+            <svg viewBox="0 0 160 22" width="160" style="position:absolute;bottom:-4px;left:0;pointer-events:none" fill="none">
+              <path d="M8 11 L32 5 L152 17" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round"/>
+              <path d="M8 16 L32 10 L152 22" stroke="#DC4633" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
+            </svg>
+          </span>
+          &nbsp;<span class="q-hand">Aún.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════ SLIDE 12: GRACIAS ══════ -->
+  <div class="slide" id="s11">
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+      <div class="thanks-mark anim">DOOKU</div>
+      <div class="anim" style="position:relative;display:inline-block;margin-top:.5rem">
+        <svg viewBox="0 0 180 80" width="160" style="position:absolute;top:-70px;left:-30px;pointer-events:none" fill="none">
+          <path d="M40 10 Q10 40 75 65" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          <path d="M68 70 L75 65 L70 57" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="thanks-word">Gracias</div>
+      </div>
+      <div class="anim" style="margin-top:2rem;font-size:.8rem;color:rgba(241,234,230,.3);letter-spacing:.06em">www.dooku.com.ar</div>
+    </div>
+  </div>
+
+</div><!-- /#deck -->
+
+<!-- Navigation UI -->
+<div id="navDots"></div>
+<div id="slideCounter">01 / 12</div>
+<div class="nav-arrows">
+  <button class="nav-btn" id="prevBtn">‹</button>
+  <button class="nav-btn" id="nextBtn">›</button>
+</div>
+
+<script>
+  const TOTAL = 12;
+  let cur = 0;
+
+  const slides  = document.querySelectorAll('.slide');
+  const dotWrap = document.getElementById('navDots');
+  const counter = document.getElementById('slideCounter');
+
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => go(i));
+    dotWrap.appendChild(d);
+  }
+
+  function go(n) {
+    if (n < 0 || n >= TOTAL || n === cur) return;
+    slides[cur].querySelectorAll('.anim').forEach(el => {
+      el.style.animation = 'none';
+      el.offsetHeight;
+      el.style.animation = '';
+    });
+    slides[cur].classList.remove('active');
+    cur = n;
+    slides[cur].classList.add('active');
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    counter.textContent = String(cur + 1).padStart(2,'0') + ' / ' + String(TOTAL).padStart(2,'0');
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => go(cur - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => go(cur + 1));
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') go(cur + 1);
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')                     go(cur - 1);
+  });
+
+  let tx = 0;
+  document.getElementById('deck').addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive:true });
+  document.getElementById('deck').addEventListener('touchend',   e => {
+    const d = tx - e.changedTouches[0].clientX;
+    if (Math.abs(d) > 45) d > 0 ? go(cur + 1) : go(cur - 1);
+  });
+</script>
+</body>
+</html>
