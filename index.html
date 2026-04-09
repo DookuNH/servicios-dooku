@@ -131,46 +131,57 @@
     .stat-num span { color:var(--red); }
     .stat-label { font-size:.78rem; color:var(--dim); margin-top:.3rem; line-height:1.4; }
 
-    /* ── ROADMAP ── */
-    .roadmap-wrap { margin-top:1.2rem; position:relative; }
-    .roadmap-line {
-      position:absolute; top:17px; left:12.5%; right:12.5%;
-      height:2px;
-      background:linear-gradient(90deg, var(--red) 0%, rgba(220,70,51,.3) 100%);
-      z-index:0;
+    /* ── ROADMAP TABLE ── */
+    .rm-table { width:100%; border-collapse:collapse; table-layout:fixed; margin-top:1.1rem; }
+    .rm-table th, .rm-table td {
+      border:1px solid rgba(241,234,230,.14);
+      padding:.5rem .45rem;
+      text-align:center; vertical-align:middle;
     }
-    .roadmap {
-      display:grid; grid-template-columns:repeat(4,1fr);
-      gap:0; position:relative; z-index:1;
+    .rm-table thead th {
+      background:rgba(220,70,51,.13);
+      color:var(--cream); font-weight:700;
+      font-size:.72rem; text-transform:uppercase; letter-spacing:.06em;
     }
-    .rm-step { display:flex; flex-direction:column; align-items:center; padding:0 .5rem; }
-    .rm-dot {
-      width:20px; height:20px; border-radius:50%;
-      border:2.5px solid var(--red); background:var(--dark);
-      display:flex; align-items:center; justify-content:center;
-      margin-bottom:.65rem; flex-shrink:0; position:relative; z-index:2;
+    .rm-table thead th:first-child { background:transparent; }
+    .rm-row-label {
+      font-weight:700; color:var(--cream);
+      background:rgba(241,234,230,.04);
+      text-align:left !important; font-size:.72rem;
+      line-height:1.4; width:110px;
     }
-    .rm-dot.filled { background:var(--red); }
-    .rm-phase { font-size:.62rem; text-transform:uppercase; letter-spacing:.13em; color:var(--red); text-align:center; margin-bottom:.25rem; }
-    .rm-title { font-size:.85rem; font-weight:700; color:var(--cream); text-align:center; margin-bottom:.45rem; line-height:1.3; }
-    .rm-list { list-style:none; display:flex; flex-direction:column; gap:.25rem; }
-    .rm-list li { font-size:.72rem; color:var(--dim); line-height:1.4; padding-left:.8rem; position:relative; }
-    .rm-list li::before { content:'—'; position:absolute; left:0; color:var(--red); }
+    .rm-table tbody td { color:var(--dim); font-size:.74rem; line-height:1.5; }
+    .rm-num { font-size:1.15rem; font-weight:800; color:var(--red); display:block; }
+    .rm-table .rm-actions { font-size:.7rem; color:var(--cream); line-height:1.65; }
+    .rm-table tfoot td {
+      background:rgba(220,70,51,.07);
+      border-top:1px solid rgba(220,70,51,.3);
+      color:var(--dim); font-size:.75rem;
+      text-align:center; padding:.65rem;
+      font-style:italic; letter-spacing:.02em;
+    }
+    .rm-tag {
+      display:inline-block; background:rgba(220,70,51,.18);
+      color:var(--red); border-radius:4px;
+      padding:.08rem .35rem; font-size:.64rem;
+      font-weight:700; letter-spacing:.04em;
+      margin:.1rem 0; line-height:1.5;
+    }
 
     /* ── BULLET LIST ── */
     .bullet-list { list-style:none; display:flex; flex-direction:column; gap:1.2rem; }
     .bullet-list li { display:flex; align-items:flex-start; gap:.9rem; font-size:clamp(.95rem,1.8vw,1.2rem); line-height:1.55; }
 
     /* ── TERMINAL ── */
-    .terminal { border:2px solid var(--red); border-radius:12px; max-width:860px; width:100%; overflow:hidden; filter:url(#rough); }
-    .terminal-head { display:flex; align-items:center; padding:.7rem 1.25rem; border-bottom:1.5px solid rgba(220,70,51,.35); }
-    .t-dot { width:13px; height:13px; border-radius:50%; background:var(--red); margin-right:.75rem; flex-shrink:0; }
-    .t-title { font-size:.95rem; color:var(--cream); flex:1; }
+    .terminal { border:2px solid var(--red); border-radius:14px; width:100%; overflow:hidden; filter:url(#rough); }
+    .terminal-head { display:flex; align-items:center; padding:.9rem 1.6rem; border-bottom:1.5px solid rgba(220,70,51,.35); }
+    .t-dot { width:15px; height:15px; border-radius:50%; background:var(--red); margin-right:.9rem; flex-shrink:0; }
+    .t-title { font-size:1.05rem; font-weight:600; color:var(--cream); flex:1; letter-spacing:.01em; }
     .t-nav { display:flex; gap:.4rem; }
-    .t-nav span { width:26px; height:26px; border:1.5px solid var(--red); border-radius:5px; display:flex; align-items:center; justify-content:center; color:var(--red); font-size:.75rem; }
-    .terminal-body { padding:1rem 1.5rem; display:flex; flex-direction:column; gap:.55rem; }
-    .terminal-body li { display:flex; align-items:center; gap:.6rem; font-size:clamp(.8rem,1.4vw,.95rem); color:var(--cream); list-style:none; }
-    .terminal-body li::before { content:'•'; color:var(--red); font-size:1.1rem; flex-shrink:0; }
+    .t-nav span { width:28px; height:28px; border:1.5px solid var(--red); border-radius:5px; display:flex; align-items:center; justify-content:center; color:var(--red); font-size:.8rem; }
+    .terminal-body { padding:1.4rem 1.8rem; display:grid; grid-template-columns:1fr 1fr; gap:.85rem 2.5rem; }
+    .terminal-body li { display:flex; align-items:flex-start; gap:.75rem; font-size:clamp(.95rem,1.6vw,1.08rem); color:var(--cream); list-style:none; line-height:1.45; }
+    .terminal-body li::before { content:'•'; color:var(--red); font-size:1.3rem; flex-shrink:0; margin-top:-.05rem; }
 
     /* ── COMPARISON TABLE ── */
     .compare-wrap { overflow-x:auto; margin-top:.75rem; }
@@ -356,12 +367,12 @@
           <div class="stat-label">logística nacional sin estructura propia</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num" style="font-size:1.3rem"><span>$</span> Cuotas</div>
-          <div class="stat-label">Mercado Pago facilita la conversión</div>
+          <div class="stat-num" style="font-size:1.3rem"><span>Confianza</span></div>
+          <div class="stat-label">el comprador sabe que su compra está protegida y garantizada</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num" style="font-size:1.3rem">SEO <span>↑</span></div>
-          <div class="stat-label">tus publicaciones aparecen en Google</div>
+          <div class="stat-num" style="font-size:1.3rem">2 <span>clics</span></div>
+          <div class="stat-label">compra en segundos, entrega en 24 hs, sin fricción</div>
         </div>
       </div>
     </div>
@@ -373,73 +384,75 @@
   <div class="slide" id="s2">
     <div class="slide-logo">DOOKU</div>
     <div class="sc">
-      <div class="anim" style="margin-bottom:1.4rem">
-        <div class="label">Tu camino en la plataforma</div>
-        <h2 class="slide-title">Roadmap del vendedor en Mercado Libre</h2>
+      <div class="anim" style="margin-bottom:1rem">
+        <div class="label">Crecimiento esperado — cuenta nueva</div>
+        <h2 class="slide-title">Roadmap para cuentas nuevas promedio</h2>
       </div>
 
-      <div class="roadmap-wrap anim">
-        <div class="roadmap-line"></div>
-        <div class="roadmap">
-
-          <div class="rm-step">
-            <div class="rm-dot filled"></div>
-            <div class="rm-phase">Mes 1</div>
-            <div class="rm-title">Lanzamiento</div>
-            <ul class="rm-list">
-              <li>Apertura y configuración de cuenta</li>
-              <li>Carga de primeras publicaciones</li>
-              <li>Definición de categorías y pricing</li>
-              <li>Setup logístico</li>
-              <li>Primeras ventas y reputación</li>
-            </ul>
-          </div>
-
-          <div class="rm-step">
-            <div class="rm-dot filled"></div>
-            <div class="rm-phase">Mes 2 — 3</div>
-            <div class="rm-title">Optimización</div>
-            <ul class="rm-list">
-              <li>Optimización de fichas y títulos</li>
-              <li>Primeras campañas de Publicidad</li>
-              <li>Reviews y reputación verde</li>
-              <li>Análisis de competidores</li>
-              <li>Activación FLEX o FULL</li>
-            </ul>
-          </div>
-
-          <div class="rm-step">
-            <div class="rm-dot"></div>
-            <div class="rm-phase">Mes 3 — 6</div>
-            <div class="rm-title">Crecimiento</div>
-            <ul class="rm-list">
-              <li>Escalar publicidad (Mercado Ads)</li>
-              <li>Estrategia de precios y márgenes</li>
-              <li>Ampliación de catálogo</li>
-              <li>Análisis de KPIs mensuales</li>
-              <li>Reputación MercadoLíder</li>
-            </ul>
-          </div>
-
-          <div class="rm-step">
-            <div class="rm-dot"></div>
-            <div class="rm-phase">Mes 6 — 12+</div>
-            <div class="rm-title">Escalabilidad</div>
-            <ul class="rm-list">
-              <li>Posicionamiento de marca</li>
-              <li>Tienda oficial en MELI</li>
-              <li>Automatización operativa</li>
-              <li>HotSale, CyberMonday</li>
-              <li>Canal predecible y rentable</li>
-            </ul>
-          </div>
-
-        </div>
+      <div class="anim">
+        <table class="rm-table">
+          <thead>
+            <tr>
+              <th>Onboarding</th>
+              <th>Mes 1</th>
+              <th>Mes 2</th>
+              <th>Mes 3</th>
+              <th>Mes 4</th>
+              <th>Mes 5</th>
+              <th>Mes 6</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="rm-row-label">Objetivo de<br>Publicaciones</td>
+              <td><span class="rm-num">20</span></td>
+              <td><span class="rm-num">40</span></td>
+              <td><span class="rm-num">60</span></td>
+              <td><span class="rm-num">75</span></td>
+              <td><span class="rm-num">90</span></td>
+              <td><span class="rm-num">105</span></td>
+            </tr>
+            <tr>
+              <td class="rm-row-label">Objetivo de<br>Ventas / mes</td>
+              <td>0–10</td>
+              <td>10–30</td>
+              <td>30–60</td>
+              <td>60–100</td>
+              <td>100–150</td>
+              <td>150–250</td>
+            </tr>
+            <tr>
+              <td class="rm-row-label">Accionables<br>Claves</td>
+              <td class="rm-actions">
+                <span class="rm-tag">Prog. Despegue</span><br>
+                <span class="rm-tag">Promociones</span><br>
+                <span class="rm-tag">Clips</span>
+              </td>
+              <td class="rm-actions">
+                <span class="rm-tag">Flex</span><br>
+                <span class="rm-tag">Publicidad</span><br>
+                <span class="rm-tag">Tienda Oficial</span>
+              </td>
+              <td class="rm-actions">
+                <span class="rm-tag">Full</span><br>
+                <span class="rm-tag">Integradores</span>
+              </td>
+              <td class="rm-actions"><span class="rm-tag">Mercado Líder</span></td>
+              <td class="rm-actions"><span class="rm-tag">ML Silver</span></td>
+              <td class="rm-actions"><span class="rm-tag">ML Platinum</span></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="7">⚠️ Mantener Reputación Verde en todo momento: Reclamos / Cancelaciones / Demoras</td>
+            </tr>
+          </tfoot>
+        </table>
       </div>
 
-      <div class="anim" style="margin-top:1.2rem;padding:.9rem 1.25rem;background:rgba(220,70,51,.08);border:1px solid rgba(220,70,51,.3);border-radius:10px;font-size:.82rem;color:var(--dim);max-width:900px">
-        <svg width="15" height="15" viewBox="0 0 50 50" fill="none" style="display:inline;vertical-align:middle;margin-right:6px"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="3" stroke-linecap="round"/></svg>
-        <strong style="color:var(--cream)">Con Dooku</strong>, no transitás este camino solo. Aceleramos cada fase con estrategia, ejecución y seguimiento permanente.
+      <div class="anim" style="margin-top:.9rem;padding:.75rem 1.25rem;background:rgba(220,70,51,.08);border:1px solid rgba(220,70,51,.3);border-radius:10px;font-size:.8rem;color:var(--dim);max-width:900px">
+        <svg width="14" height="14" viewBox="0 0 50 50" fill="none" style="display:inline;vertical-align:middle;margin-right:6px"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="3" stroke-linecap="round"/></svg>
+        <strong style="color:var(--cream)">Con Dooku</strong>, aceleramos cada fase con estrategia, ejecución y seguimiento permanente.
       </div>
     </div>
   </div>
@@ -449,7 +462,8 @@
   <div class="slide" id="s3">
     <div class="slide-logo">DOOKU</div>
     <div class="sc">
-      <div class="anim" style="margin-bottom:2rem">
+      <div class="anim" style="margin-bottom:1.1rem">
+        <div class="label">Por qué elegirnos</div>
         <h2 class="slide-title">
           Nuestra
           <span style="position:relative;display:inline-block">experiencia
@@ -460,20 +474,54 @@
           <span style="color:var(--red);font-family:'Caveat',cursive;font-size:.85em"> !</span>
         </h2>
       </div>
-      <ul class="bullet-list">
-        <li class="anim">
-          <svg class="ast" width="26" height="26" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.8" stroke-linecap="round"/></svg>
-          Somos una <strong>Consultora Certificada Gold</strong> de Mercado Libre.
-        </li>
-        <li class="anim">
-          <svg class="ast" width="26" height="26" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.8" stroke-linecap="round"/></svg>
-          Formamos parte del proyecto <strong>"Fabricantes de Moda"</strong> con Mercado Libre, asesorando a más de 100 clientes.
-        </li>
-        <li class="anim">
-          <svg class="ast" width="26" height="26" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.8" stroke-linecap="round"/></svg>
-          Además de consultores, somos <strong>sellers de tecnología Top 5 de Argentina</strong>.
-        </li>
-      </ul>
+
+      <!-- 2×2 cards -->
+      <div class="anim" style="display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;max-width:960px;width:100%">
+
+        <!-- Card 1: Gold -->
+        <div style="background:rgba(255,230,0,.06);border:1px solid rgba(255,230,0,.25);border-radius:14px;padding:1.4rem 1.5rem;display:flex;gap:1.1rem;align-items:flex-start">
+          <div style="background:#FFE600;border-radius:10px;padding:.6rem .65rem;flex-shrink:0;margin-top:.1rem">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#FFE600"/><path d="M7 12.5l3 3 6-7" stroke="#222" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <div style="font-weight:700;color:#FFE600;font-size:1.05rem;margin-bottom:.45rem">Certificada Gold — Mercado Libre</div>
+            <div style="font-size:.88rem;color:var(--dim);line-height:1.6">Una de las certificaciones más altas que otorga MELI. Acceso a herramientas, soporte prioritario y recursos exclusivos del ecosistema.</div>
+          </div>
+        </div>
+
+        <!-- Card 2: Beneficios exclusivos -->
+        <div style="background:rgba(201,180,211,.07);border:1px solid rgba(201,180,211,.22);border-radius:14px;padding:1.4rem 1.5rem;display:flex;gap:1.1rem;align-items:flex-start">
+          <div style="background:var(--purple);border-radius:10px;padding:.6rem .65rem;flex-shrink:0;margin-top:.1rem;font-size:1.35rem;line-height:1">🎁</div>
+          <div>
+            <div style="font-weight:700;color:var(--purple);font-size:1.05rem;margin-bottom:.45rem">Beneficios exclusivos para tus clientes</div>
+            <div style="font-size:.88rem;color:var(--dim);line-height:1.6">Promociones compartidas y bonificaciones especiales disponibles <em>únicamente</em> para los clientes que gestionamos nosotros.</div>
+          </div>
+        </div>
+
+        <!-- Card 3: Fabricantes de Moda -->
+        <div style="background:rgba(220,70,51,.07);border:1px solid rgba(220,70,51,.25);border-radius:14px;padding:1.4rem 1.5rem;display:flex;gap:1.1rem;align-items:flex-start">
+          <div style="background:var(--red);border-radius:10px;padding:.6rem .65rem;flex-shrink:0;margin-top:.1rem;font-size:1.35rem;line-height:1">🏭</div>
+          <div>
+            <div style="font-weight:700;color:var(--cream);font-size:1.05rem;margin-bottom:.45rem">Proyecto "Fabricantes de Moda"</div>
+            <div style="font-size:.88rem;color:var(--dim);line-height:1.6">Participamos de este gran proyecto que se encarga de desarrollar <strong style="color:var(--red)">+100 cuentas nuevas por mes</strong> en la plataforma. Mercado Libre nos eligió para liderar este programa estratégico.</div>
+          </div>
+        </div>
+
+        <!-- Card 4: Vendedores -->
+        <div style="background:rgba(92,184,92,.07);border:1px solid rgba(92,184,92,.22);border-radius:14px;padding:1.4rem 1.5rem;display:flex;gap:1.1rem;align-items:flex-start">
+          <div style="background:var(--green);border-radius:10px;padding:.6rem .65rem;flex-shrink:0;margin-top:.1rem;font-size:1.35rem;line-height:1">📈</div>
+          <div>
+            <div style="font-weight:700;color:var(--green);font-size:1.05rem;margin-bottom:.45rem">Top 5 sellers de Tecnología en Argentina</div>
+            <div style="font-size:.88rem;color:var(--dim);line-height:1.6">No solo asesoramos — vendemos. Conocemos la plataforma desde adentro porque la vivimos todos los días como vendedores.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tagline -->
+      <div class="anim" style="margin-top:1rem;max-width:960px;width:100%;padding:.9rem 1.5rem;border-left:3px solid var(--red);background:rgba(220,70,51,.06);border-radius:0 10px 10px 0">
+        <span style="font-family:'Caveat',cursive;font-size:1.55rem;color:var(--cream);letter-spacing:.01em">"Somos una consultora hecha por vendedores."</span>
+      </div>
     </div>
     <svg class="deco" style="top:12%;right:4%;width:56px;opacity:.55" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.5" stroke-linecap="round"/></svg>
     <svg class="deco" style="bottom:22%;right:10%;width:36px;opacity:.38" viewBox="0 0 50 50" fill="none"><path d="M25 6v38M6 25h38M10 10l30 30M40 10 10 40" stroke="#DC4633" stroke-width="2" stroke-linecap="round"/></svg>
@@ -484,29 +532,49 @@
   <div class="slide" id="s4">
     <div class="slide-logo">DOOKU</div>
     <div class="sc">
-      <div class="anim" style="position:relative;display:inline-block;margin-bottom:1.4rem">
+      <div class="anim" style="position:relative;display:inline-block;margin-bottom:1.2rem">
+        <div class="label">Nuestros modelos de servicio</div>
         <h2 class="slide-title">Cómo trabajamos</h2>
         <svg viewBox="0 0 380 14" width="280" style="position:absolute;bottom:-6px;left:0;pointer-events:none" fill="none">
           <path d="M8 7C60 2 120 12 180 6C240 1 300 11 372 6" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round"/>
         </svg>
       </div>
-      <div class="anim" style="display:flex;align-items:flex-start;gap:.9rem;max-width:860px;margin-bottom:1.5rem">
-        <svg width="24" height="24" viewBox="0 0 50 50" fill="none" style="flex-shrink:0;margin-top:3px"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.8" stroke-linecap="round"/></svg>
-        <p style="font-size:clamp(.9rem,1.7vw,1.15rem);line-height:1.65">
+
+      <!-- Dos modelos -->
+      <div class="anim" style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem;max-width:860px;margin-bottom:1.3rem">
+        <div style="border:1.5px solid rgba(220,70,51,.4);border-radius:12px;padding:1rem 1.2rem;background:rgba(220,70,51,.06)">
+          <div style="font-weight:700;color:var(--cream);font-size:1rem;margin-bottom:.3rem">⚙️ Gestión de cuenta</div>
+          <div style="font-size:.82rem;color:var(--dim);line-height:1.55">Nos hacemos cargo de la operación completa de tu cuenta en Mercado Libre. Vos solo mirás los resultados.</div>
+        </div>
+        <div style="border:1.5px solid rgba(201,180,211,.35);border-radius:12px;padding:1rem 1.2rem;background:rgba(201,180,211,.06)">
+          <div style="font-weight:700;color:var(--purple);font-size:1rem;margin-bottom:.3rem">💡 Consultoría</div>
+          <div style="font-size:.82rem;color:var(--dim);line-height:1.55">Te asesoramos con estrategia, datos y experiencia para que crezcas en MELI con autonomía.</div>
+        </div>
+      </div>
+
+      <!-- Párrafo core -->
+      <div class="anim" style="display:flex;align-items:flex-start;gap:.9rem;max-width:860px;margin-bottom:1.1rem">
+        <svg width="22" height="22" viewBox="0 0 50 50" fill="none" style="flex-shrink:0;margin-top:3px"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.8" stroke-linecap="round"/></svg>
+        <p style="font-size:clamp(.88rem,1.6vw,1.1rem);line-height:1.65">
           Liberamos al cliente de la complejidad operativa del Ecommerce. Vos te enfocás en tu negocio, <strong>nosotros hacemos crecer tus ventas</strong> de forma rentable y sostenible.
         </p>
       </div>
-      <div class="anim" style="display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:1.2rem">
+
+      <!-- Pills -->
+      <div class="anim" style="display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:1.1rem">
         <span style="background:rgba(220,70,51,.12);border:1px solid rgba(220,70,51,.35);border-radius:2rem;padding:.4rem 1.1rem;font-size:.82rem">Estrategia</span>
         <span style="background:rgba(220,70,51,.12);border:1px solid rgba(220,70,51,.35);border-radius:2rem;padding:.4rem 1.1rem;font-size:.82rem">Ejecución</span>
         <span style="background:rgba(220,70,51,.12);border:1px solid rgba(220,70,51,.35);border-radius:2rem;padding:.4rem 1.1rem;font-size:.82rem">Seguimiento</span>
-        <span style="background:rgba(220,70,51,.12);border:1px solid rgba(220,70,51,.35);border-radius:2rem;padding:.4rem 1.1rem;font-size:.82rem">Mercado Libre B2C</span>
+        <span style="background:rgba(92,184,92,.12);border:1px solid rgba(92,184,92,.4);border-radius:2rem;padding:.4rem 1.1rem;font-size:.82rem;color:var(--green)">💰 Rentabilidad</span>
+        <span style="background:rgba(92,184,92,.12);border:1px solid rgba(92,184,92,.4);border-radius:2rem;padding:.4rem 1.1rem;font-size:.82rem;color:var(--green)">📈 Crecimiento sostenido</span>
       </div>
+
+      <!-- Result cards -->
       <div class="results-row anim">
-        <div class="res-card"><div class="res-emoji">📈</div><div class="res-label">Más ventas</div></div>
+        <div class="res-card"><div class="res-emoji">📦</div><div class="res-label">Mayor volumen de ventas</div></div>
         <div class="res-card"><div class="res-emoji">🎯</div><div class="res-label">Mejor conversión</div></div>
-        <div class="res-card"><div class="res-emoji">⚙️</div><div class="res-label">Operación optimizada</div></div>
-        <div class="res-card"><div class="res-emoji">🌱</div><div class="res-label">Crecimiento sostenible</div></div>
+        <div class="res-card"><div class="res-emoji">⚙️</div><div class="res-label">Operación sin fricción</div></div>
+        <div class="res-card"><div class="res-emoji">💰</div><div class="res-label">Margen protegido</div></div>
       </div>
     </div>
   </div>
@@ -516,7 +584,10 @@
   <div class="slide" id="s5">
     <div class="slide-logo">DOOKU</div>
     <div class="sc">
-      <h2 class="slide-title anim" style="margin-bottom:1.4rem">Gestión de Cuenta: Mercado Libre</h2>
+      <div class="anim" style="margin-bottom:1.2rem">
+        <div class="label">Modelo de servicio — Tier 1</div>
+        <h2 class="slide-title">⚙️ Gestión de Cuenta</h2>
+      </div>
       <div class="terminal anim">
         <div class="terminal-head">
           <div class="t-dot"></div>
@@ -545,7 +616,10 @@
   <div class="slide" id="s6">
     <div class="slide-logo">DOOKU</div>
     <div class="sc">
-      <h2 class="slide-title anim" style="margin-bottom:1.4rem">Consultoría Ecommerce</h2>
+      <div class="anim" style="margin-bottom:1.2rem">
+        <div class="label">Modelo de servicio — Tier 2</div>
+        <h2 class="slide-title">💡 Consultoría Ecommerce</h2>
+      </div>
       <div class="terminal anim">
         <div class="terminal-head">
           <div class="t-dot"></div>
