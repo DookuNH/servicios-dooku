@@ -52,8 +52,14 @@
 
     /* ── HEADER LOGO ── */
     .slide-logo {
-      position:absolute; top:1.4rem; left:50%; transform:translateX(-50%);
-      font-weight:900; font-size:1rem; letter-spacing:.2em; color:var(--cream); opacity:.8;
+      position:absolute; top:1.1rem; left:50%; transform:translateX(-50%);
+      display:flex; align-items:center;
+    }
+    .slide-logo img {
+      height:26px; width:auto;
+      filter:invert(1);
+      mix-blend-mode:screen;
+      opacity:.85;
     }
 
     /* ── NAV ── */
@@ -173,7 +179,8 @@
     .bullet-list li { display:flex; align-items:flex-start; gap:.9rem; font-size:clamp(.95rem,1.8vw,1.2rem); line-height:1.55; }
 
     /* ── TERMINAL ── */
-    .terminal { border:2px solid var(--red); border-radius:14px; width:100%; overflow:hidden; filter:url(#rough); }
+    .terminal { border:2px solid var(--red); border-radius:14px; width:100%; overflow:hidden; position:relative; }
+    .terminal::before { content:''; position:absolute; inset:-2px; border:2px solid var(--red); border-radius:14px; filter:url(#rough); pointer-events:none; z-index:1; }
     .terminal-head { display:flex; align-items:center; padding:.9rem 1.6rem; border-bottom:1.5px solid rgba(220,70,51,.35); }
     .t-dot { width:15px; height:15px; border-radius:50%; background:var(--red); margin-right:.9rem; flex-shrink:0; }
     .t-title { font-size:1.05rem; font-weight:600; color:var(--cream); flex:1; letter-spacing:.01em; }
@@ -184,7 +191,7 @@
     .terminal-body li::before { content:'•'; color:var(--red); font-size:1.3rem; flex-shrink:0; margin-top:-.05rem; }
 
     /* ── COMPARISON TABLE ── */
-    .compare-wrap { overflow-x:auto; margin-top:.75rem; }
+    .compare-wrap { overflow-x:auto; margin-top:.3rem; }
     .compare { width:100%; border-collapse:collapse; font-size:clamp(.76rem,1.3vw,.9rem); }
     .compare thead tr { border-bottom:2px solid rgba(220,70,51,.5); }
     .compare th { padding:.75rem 1rem; text-align:left; font-weight:700; }
@@ -206,23 +213,23 @@
     .price-big { font-size:1.1rem; font-weight:900; color:var(--cream); }
 
     /* ── PRICING ── */
-    .pricing-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.1rem; max-width:980px; width:100%; }
-    .p-card { border:1.5px solid rgba(220,70,51,.4); border-radius:14px; padding:1.4rem; background:rgba(255,255,255,.03); display:flex; flex-direction:column; }
+    .pricing-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1.3rem; max-width:1040px; width:100%; }
+    .p-card { border:1.5px solid rgba(220,70,51,.4); border-radius:16px; padding:1.9rem 2rem; background:rgba(255,255,255,.03); display:flex; flex-direction:column; }
     .p-card.featured { border-color:var(--red); background:rgba(220,70,51,.07); }
-    .p-card.addon { border-color:rgba(201,180,211,.5); background:rgba(201,180,211,.05); }
-    .p-type { font-size:.65rem; text-transform:uppercase; letter-spacing:.18em; color:var(--red); margin-bottom:.35rem; }
-    .p-card.addon .p-type { color:var(--purple); }
-    .p-name { font-size:1rem; font-weight:700; color:var(--cream); margin-bottom:1rem; line-height:1.3; }
-    .p-amount { font-size:clamp(1.5rem,2.5vw,2rem); font-weight:900; color:var(--cream); line-height:1; }
-    .p-iva { font-size:.68rem; color:rgba(241,234,230,.4); margin-top:.2rem; }
-    .p-extra { margin-top:.9rem; padding-top:.9rem; border-top:1px solid rgba(255,255,255,.1); font-size:.78rem; color:var(--dim); flex:1; }
+    .p-card.addon { border-color:rgba(92,184,92,.45); background:rgba(92,184,92,.05); }
+    .p-type { font-size:.72rem; text-transform:uppercase; letter-spacing:.18em; color:var(--red); margin-bottom:.5rem; }
+    .p-card.addon .p-type { color:var(--green); }
+    .p-name { font-size:1.15rem; font-weight:700; color:var(--cream); margin-bottom:1.2rem; line-height:1.3; }
+    .p-amount { font-size:clamp(1.7rem,2.8vw,2.3rem); font-weight:900; color:var(--cream); line-height:1; }
+    .p-iva { font-size:.72rem; color:rgba(241,234,230,.4); margin-top:.25rem; }
+    .p-extra { margin-top:1rem; padding-top:1rem; border-top:1px solid rgba(255,255,255,.1); font-size:.85rem; color:var(--dim); flex:1; line-height:1.55; }
     .p-note { font-size:.68rem; color:rgba(241,234,230,.35); margin-top:.5rem; font-style:italic; }
 
     /* ── HOW CARDS ── */
-    .how-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; width:100%; }
-    .h-card { background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:12px; padding:1.35rem; }
-    .h-card-title { font-size:.95rem; font-weight:700; color:var(--cream); margin:.6rem 0 .45rem; }
-    .h-card-text { font-size:.8rem; line-height:1.6; color:var(--dim); }
+    .how-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; width:100%; }
+    .h-card { background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:16px; padding:2.4rem 2.2rem; display:flex; flex-direction:column; }
+    .h-card-title { font-size:1.3rem; font-weight:700; color:var(--cream); margin:1rem 0 .8rem; }
+    .h-card-text { font-size:1.05rem; line-height:1.75; color:var(--dim); }
 
     /* ── PRÓXIMOS PASOS ── */
     .steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:.5rem; }
@@ -251,23 +258,23 @@
     .res-label { font-size:.85rem; color:var(--dim); }
 
     /* ── PLANES DE PAGO ── */
-    .plans-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:.75rem; }
-    .plans-head { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.15em; color:var(--dim); margin-bottom:.6rem; padding-bottom:.5rem; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
-    .plans-head strong { color:var(--cream); font-size:.85rem; text-transform:none; letter-spacing:0; }
-    .plan-row { display:flex; align-items:center; justify-content:space-between; padding:.6rem .85rem; border-radius:8px; margin-bottom:.45rem; background:rgba(255,255,255,.03); border:1px solid var(--border); transition:border-color .2s; }
+    .plans-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:.5rem; }
+    .plans-head { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--dim); margin-bottom:.6rem; padding-bottom:.5rem; border-bottom:1px solid var(--border); display:flex; flex-direction:column; gap:.15rem; }
+    .plans-head strong { color:var(--cream); font-size:1.05rem; text-transform:none; letter-spacing:0; font-weight:800; }
+    .plan-row { display:flex; align-items:center; justify-content:space-between; gap:.5rem; padding:.7rem 1rem; border-radius:10px; margin-bottom:.45rem; background:rgba(255,255,255,.03); border:1px solid var(--border); transition:border-color .2s; }
     .plan-row:hover { border-color:rgba(220,70,51,.35); }
     .plan-row.best { border-color:rgba(220,70,51,.55); background:rgba(220,70,51,.08); }
     .plan-row.best-purple { border-color:rgba(201,180,211,.45); background:rgba(201,180,211,.06); }
-    .plan-name { font-size:.85rem; font-weight:600; color:var(--cream); }
-    .plan-sub { font-size:.68rem; color:var(--dim); margin-top:.1rem; }
-    .plan-price { font-size:.95rem; font-weight:800; color:var(--cream); text-align:right; }
-    .plan-total { font-size:.68rem; color:var(--dim); text-align:right; margin-top:.1rem; }
-    .discount-badge { display:inline-block; font-size:.64rem; font-weight:700; padding:.1rem .5rem; border-radius:1rem; margin-left:.45rem; vertical-align:middle; }
+    .plan-name { font-size:1rem; font-weight:600; color:var(--cream); white-space:nowrap; }
+    .plan-sub { font-size:.75rem; color:var(--dim); margin-top:.1rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .plan-price { font-size:1.1rem; font-weight:800; color:var(--cream); text-align:right; white-space:nowrap; }
+    .plan-total { font-size:.75rem; color:var(--dim); text-align:right; margin-top:.1rem; white-space:nowrap; }
+    .discount-badge { display:inline-block; font-size:.7rem; font-weight:700; padding:.12rem .5rem; border-radius:1rem; margin-left:.45rem; vertical-align:middle; }
     .badge-green { background:rgba(92,184,92,.15); border:1px solid rgba(92,184,92,.35); color:#6fcf6f; }
     .badge-red   { background:rgba(220,70,51,.15); border:1px solid rgba(220,70,51,.35); color:var(--red); }
     .badge-purple{ background:rgba(201,180,211,.15); border:1px solid rgba(201,180,211,.35); color:var(--purple); }
-    .mp-note { display:flex; align-items:center; gap:.5rem; margin-top:.85rem; font-size:.72rem; color:var(--dim); }
-    .mp-dot { width:8px; height:8px; border-radius:50%; background:#00b1ea; flex-shrink:0; }
+    .mp-note { display:flex; align-items:center; gap:.5rem; margin-top:.6rem; font-size:.78rem; color:var(--dim); }
+    .mp-dot { width:9px; height:9px; border-radius:50%; background:#00b1ea; flex-shrink:0; }
 
     /* ── QUOTE / THANKS ── */
     #s12 { align-items:center; justify-content:center; text-align:center; }
@@ -309,8 +316,8 @@
   <div class="slide active" id="s0">
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
       <div class="anim">
-        <div style="font-size:clamp(4.5rem,11vw,9rem);font-weight:900;letter-spacing:.06em;color:var(--cream);line-height:1">DOOKU</div>
-        <div style="font-size:clamp(.75rem,1.4vw,1rem);font-weight:300;letter-spacing:.45em;color:var(--cream);text-transform:uppercase;margin-top:.3rem;opacity:.7">NUEVOS HORIZONTES</div>
+        <img src="logo-claim.png" alt="Dooku — Nuevos Horizontes"
+          style="width:clamp(220px,32vw,420px);height:auto;filter:invert(1);mix-blend-mode:screen;opacity:.95">
       </div>
       <div class="anim" style="font-size:clamp(1.4rem,2.5vw,2rem);font-weight:400;margin:2rem 0 .75rem">Consultora de E-Commerce</div>
       <div class="anim" style="font-size:clamp(.8rem,1.5vw,1rem);color:var(--dim);margin-bottom:1.75rem;font-family:'Caveat',cursive;font-size:1.15rem">Gestión · Estrategia · Crecimiento en Mercado Libre</div>
@@ -333,7 +340,7 @@
 
   <!-- ══════ S1: POR QUÉ MELI ══════ -->
   <div class="slide" id="s1">
-    <div class="slide-logo">DOOKU</div>
+    <div class="slide-logo"><img src="logo-dooku.png" alt="Dooku"></div>
     <div class="sc">
       <div class="anim" style="margin-bottom:.9rem">
         <div class="label">El canal</div>
@@ -382,7 +389,7 @@
 
   <!-- ══════ S2: ROADMAP ══════ -->
   <div class="slide" id="s2">
-    <div class="slide-logo">DOOKU</div>
+    <div class="slide-logo"><img src="logo-dooku.png" alt="Dooku"></div>
     <div class="sc">
       <div class="anim" style="margin-bottom:1rem">
         <div class="label">Crecimiento esperado — cuenta nueva</div>
@@ -460,7 +467,7 @@
 
   <!-- ══════ S3: EXPERIENCIA ══════ -->
   <div class="slide" id="s3">
-    <div class="slide-logo">DOOKU</div>
+    <div class="slide-logo"><img src="logo-dooku.png" alt="Dooku"></div>
     <div class="sc">
       <div class="anim" style="margin-bottom:1.1rem">
         <div class="label">Por qué elegirnos</div>
@@ -530,7 +537,7 @@
 
   <!-- ══════ S4: CÓMO TRABAJAMOS ══════ -->
   <div class="slide" id="s4">
-    <div class="slide-logo">DOOKU</div>
+    <div class="slide-logo"><img src="logo-dooku.png" alt="Dooku"></div>
     <div class="sc">
       <div class="anim" style="position:relative;display:inline-block;margin-bottom:1.2rem">
         <div class="label">Nuestros modelos de servicio</div>
@@ -582,16 +589,36 @@
 
   <!-- ══════ S5: GESTIÓN DE CUENTA ══════ -->
   <div class="slide" id="s5">
-    <div class="slide-logo">DOOKU</div>
+    <div class="slide-logo"><img src="logo-dooku.png" alt="Dooku"></div>
     <div class="sc">
-      <div class="anim" style="margin-bottom:1.2rem">
+      <div class="anim" style="margin-bottom:.5rem">
         <div class="label">Modelo de servicio — Tier 1</div>
         <h2 class="slide-title">⚙️ Gestión de Cuenta</h2>
       </div>
+
+      <!-- Intro -->
+      <div class="anim" style="max-width:960px;margin-bottom:.6rem;font-size:clamp(.9rem,1.6vw,1.05rem);line-height:1.55;color:var(--cream)">
+        Tomamos el control total de tu cuenta con <strong>recursos profesionales especializados</strong>. Vos te sacás la operación de encima, reducís costos de estructura y tu canal crece — <strong style="color:var(--red)">mejor de lo que lo haría cualquier recurso interno.</strong>
+      </div>
+
+      <!-- 3 value pills -->
+      <div class="anim" style="display:flex;gap:.6rem;margin-bottom:.6rem;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:.5rem;background:rgba(92,184,92,.1);border:1px solid rgba(92,184,92,.35);border-radius:2rem;padding:.45rem 1.1rem;font-size:.85rem;color:var(--green);font-weight:600">
+          💸 Más barato que un empleado
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem;background:rgba(220,70,51,.1);border:1px solid rgba(220,70,51,.35);border-radius:2rem;padding:.45rem 1.1rem;font-size:.85rem;color:var(--cream);font-weight:600">
+          🚀 Equipo profesional dedicado
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem;background:rgba(201,180,211,.1);border:1px solid rgba(201,180,211,.35);border-radius:2rem;padding:.45rem 1.1rem;font-size:.85rem;color:var(--purple);font-weight:600">
+          🤝 Decisiones siempre en conjunto
+        </div>
+      </div>
+
+      <!-- Terminal list -->
       <div class="terminal anim">
         <div class="terminal-head">
           <div class="t-dot"></div>
-          <span class="t-title">Gestión total de Mercado Libre</span>
+          <span class="t-title">¿Qué incluye la gestión completa?</span>
           <div class="t-nav"><span>‹</span><span>›</span></div>
         </div>
         <ul class="terminal-body">
@@ -607,6 +634,11 @@
           <li>Gestión Activa: Pre Venta y Post venta</li>
         </ul>
       </div>
+
+      <!-- Decisiones en conjunto -->
+      <div class="anim" style="margin-top:.5rem;max-width:960px;padding:.55rem 1.3rem;border-left:3px solid var(--purple);background:rgba(201,180,211,.06);border-radius:0 10px 10px 0;font-size:.85rem;color:var(--dim);line-height:1.45">
+        <strong style="color:var(--purple)">🤝 Nada se ejecuta sin tu aprobación.</strong> Cada acción, campaña o cambio estratégico se decide junto al dueño del negocio. Vos tenés el control — nosotros la ejecución.
+      </div>
       <div class="footnote">*el cliente provee la información en drive compartido / grupo de whatsapp</div>
     </div>
   </div>
@@ -614,31 +646,55 @@
 
   <!-- ══════ S6: CONSULTORÍA ══════ -->
   <div class="slide" id="s6">
-    <div class="slide-logo">DOOKU</div>
+    <div class="slide-logo"><img src="logo-dooku.png" alt="Dooku"></div>
     <div class="sc">
-      <div class="anim" style="margin-bottom:1.2rem">
+      <div class="anim" style="margin-bottom:.5rem">
         <div class="label">Modelo de servicio — Tier 2</div>
         <h2 class="slide-title">💡 Consultoría Ecommerce</h2>
       </div>
+
+      <!-- Intro -->
+      <div class="anim" style="max-width:960px;margin-bottom:.6rem;font-size:clamp(.9rem,1.6vw,1.05rem);line-height:1.55;color:var(--cream)">
+        Acompañamos y <strong>capacitamos a tu equipo</strong> para que opere la cuenta de la mejor manera y mejore los resultados. Nos encargamos directamente de <strong style="color:var(--red)">la gestión de publicidad — lo más complejo de la plataforma.</strong> El resto, te marcamos el camino.
+      </div>
+
+      <!-- 3 value pills -->
+      <div class="anim" style="display:flex;gap:.6rem;margin-bottom:.6rem;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:.5rem;background:rgba(201,180,211,.1);border:1px solid rgba(201,180,211,.35);border-radius:2rem;padding:.45rem 1.1rem;font-size:.85rem;color:var(--purple);font-weight:600">
+          📚 Capacitación a tu equipo
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem;background:rgba(220,70,51,.1);border:1px solid rgba(220,70,51,.35);border-radius:2rem;padding:.45rem 1.1rem;font-size:.85rem;color:var(--cream);font-weight:600">
+          📢 Publicidad gestionada por Dooku
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem;background:rgba(92,184,92,.1);border:1px solid rgba(92,184,92,.35);border-radius:2rem;padding:.45rem 1.1rem;font-size:.85rem;color:var(--green);font-weight:600">
+          🗺️ Plan de acción personalizado
+        </div>
+      </div>
+
+      <!-- Terminal list -->
       <div class="terminal anim">
         <div class="terminal-head">
           <div class="t-dot"></div>
-          <span class="t-title">Servicio Integral de Asesoría</span>
+          <span class="t-title">¿Qué incluye la consultoría?</span>
           <div class="t-nav"><span>‹</span><span>›</span></div>
         </div>
         <ul class="terminal-body">
-          <li>Optimización de Conversión</li>
+          <li>Capacitación a tu equipo en el uso de la plataforma</li>
+          <li>Plan de acción personalizado por etapas</li>
           <li>Estrategia de Pricing y Margen</li>
-          <li>Gestión y Optimización de Publicidad (Mercado Ads)</li>
-          <li>Capacitación del uso de la plataforma</li>
-          <li>Gestión de Full y Logística</li>
-          <li>Rentabilidad y Análisis de KPIs</li>
+          <li>Optimización de fichas y conversión</li>
           <li>Análisis de Competidores y Mercado</li>
+          <li style="color:#FFE600"><strong>★ Gestión y Optimización de Publicidad (Mercado Ads)</strong></li>
+          <li>Rentabilidad y Análisis de KPIs</li>
           <li>Estrategia Comercial y Escalabilidad</li>
           <li>Seguimiento y Control Permanente</li>
-          <li>Contacto constante por Grupo de Whatsapp</li>
           <li>Reuniones cada 15 días: Cierre de Mes y monitoreo</li>
         </ul>
+      </div>
+
+      <!-- Callout -->
+      <div class="anim" style="margin-top:.5rem;max-width:960px;padding:.55rem 1.3rem;border-left:3px solid var(--green);background:rgba(92,184,92,.05);border-radius:0 10px 10px 0;font-size:.85rem;color:var(--dim);line-height:1.45">
+        <strong style="color:var(--green)">🗺️ Te marcamos el camino.</strong> Armamos un plan de acción para que puedas desarrollar tu cuenta y escalar tu negocio con autonomía — con Dooku como respaldo estratégico permanente.
       </div>
     </div>
   </div>
@@ -646,9 +702,9 @@
 
   <!-- ══════ S7: COMPARATIVA ══════ -->
   <div class="slide" id="s7">
-    <div class="slide-logo">DOOKU</div>
-    <div class="sc">
-      <div class="anim" style="margin-bottom:1rem">
+    <div class="slide-logo"><img src="logo-dooku.png" alt="Dooku"></div>
+    <div class="sc" style="margin-top:1.8rem">
+      <div class="anim" style="margin-bottom:.5rem">
         <div class="label">¿Cuál es para mí?</div>
         <h2 class="slide-title">Diferencias entre servicios</h2>
       </div>
@@ -732,9 +788,9 @@
 
   <!-- ══════ S8: COSTOS ══════ -->
   <div class="slide" id="s8">
-    <div class="slide-logo">DOOKU</div>
+    <div class="slide-logo"><img src="logo-dooku.png" alt="Dooku"></div>
     <div class="sc">
-      <div class="anim" style="position:relative;display:inline-block;margin-bottom:1.8rem">
+      <div class="anim" style="position:relative;display:inline-block;margin-bottom:1.1rem">
         <h2 class="slide-title">Costos del Servicio</h2>
         <svg viewBox="0 0 360 18" width="300" style="position:absolute;bottom:-10px;left:0;pointer-events:none" fill="none">
           <path d="M6 9 C36 4 72 14 108 8 C144 3 180 13 216 8 C252 3 288 13 354 9" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round"/>
@@ -779,22 +835,22 @@
           <div class="p-note">Factura mensual · abono a mes vencido.</div>
         </div>
 
-        <!-- Add-on SKU -->
+        <!-- Propuesta a medida -->
         <div class="p-card addon">
-          <div class="p-type" style="color:var(--purple)">Add-on</div>
-          <div class="p-name">Optimización<br>de Publicaciones</div>
+          <div class="p-type">Propuesta a Medida</div>
+          <div class="p-name">Alianza Estratégica<br>Canal de Venta Online</div>
           <div style="display:flex;align-items:flex-start;gap:.7rem">
-            <svg width="18" height="18" viewBox="0 0 50 50" fill="none" style="flex-shrink:0;margin-top:4px"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#C9B4D3" stroke-width="3" stroke-linecap="round"/></svg>
+            <svg width="20" height="20" viewBox="0 0 50 50" fill="none" style="flex-shrink:0;margin-top:4px"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#5CB85C" stroke-width="3" stroke-linecap="round"/></svg>
             <div>
-              <div style="font-size:.68rem;color:var(--dim);margin-bottom:.2rem">Por publicación</div>
-              <div class="p-amount" style="font-size:1.5rem">$10.000</div>
-              <div class="p-iva">+ IVA / SKU</div>
+              <div style="font-size:.72rem;color:var(--dim);margin-bottom:.2rem">Precio</div>
+              <div class="p-amount" style="color:var(--green);font-size:1.9rem">A medida</div>
+              <div class="p-iva">según alcance del proyecto</div>
             </div>
           </div>
-          <div class="p-extra" style="font-size:.76rem">
-            Título, descripción, ficha técnica y fotos optimizadas para convertir. Compatible con ambos tiers.
+          <div class="p-extra">
+            Nos hacemos cargo de <strong style="color:var(--cream)">todo tu canal de venta online</strong> — más allá de Mercado Libre. Incluye gestión de tienda propia, marketplaces y <strong style="color:var(--cream)">manejo de pauta digital</strong>. Una alianza pensada para escalar tu negocio entero.
           </div>
-          <div class="p-note">Pago único por publicación.</div>
+          <div class="p-note" style="margin-top:.8rem">Consultá por tu caso particular.</div>
         </div>
 
       </div>
@@ -804,9 +860,9 @@
 
   <!-- ══════ S9: PLANES DE PAGO ══════ -->
   <div class="slide" id="s9">
-    <div class="slide-logo">DOOKU</div>
+    <div class="slide-logo"><img src="logo-dooku.png" alt="Dooku"></div>
     <div class="sc">
-      <div class="anim" style="margin-bottom:.9rem">
+      <div class="anim" style="margin-bottom:.6rem">
         <div class="label">Suscripción y compromisos</div>
         <h2 class="slide-title">Planes de pago</h2>
       </div>
@@ -934,9 +990,9 @@
 
   <!-- ══════ S10: ¿CÓMO TRABAJAMOS? ══════ -->
   <div class="slide" id="s10">
-    <div class="slide-logo">DOOKU</div>
+    <div class="slide-logo"><img src="logo-dooku.png" alt="Dooku"></div>
     <div class="sc">
-      <div class="anim" style="position:relative;display:inline-block;margin-bottom:1.8rem">
+      <div class="anim" style="position:relative;display:inline-block;margin-bottom:2.2rem">
         <h2 class="slide-title">¿Cómo trabajamos?</h2>
         <svg viewBox="0 0 420 14" width="340" style="position:absolute;bottom:-7px;left:0;pointer-events:none" fill="none">
           <path d="M8 7 C70 2 140 12 210 7 C280 2 350 11 412 7" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round"/>
@@ -944,17 +1000,17 @@
       </div>
       <div class="how-grid anim">
         <div class="h-card">
-          <svg width="30" height="30" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <svg width="44" height="44" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.5" stroke-linecap="round"/></svg>
           <div class="h-card-title">Grupo de contacto</div>
           <div class="h-card-text">Al comenzar se crea un grupo de WhatsApp con el equipo Dooku. Disponibles <strong>lunes a viernes de 9 a 18 hs</strong> para consultas y temas operativos.</div>
         </div>
         <div class="h-card">
-          <svg width="30" height="30" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <svg width="44" height="44" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.5" stroke-linecap="round"/></svg>
           <div class="h-card-title">Reuniones quincenales</div>
           <div class="h-card-text">Nos reunimos <strong>cada 15 días</strong> para brindar feedback, análisis y accionables concretos. Cada punto se revisa en la reunión siguiente.</div>
         </div>
         <div class="h-card">
-          <svg width="30" height="30" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <svg width="44" height="44" viewBox="0 0 50 50" fill="none"><path d="M25 4v42M4 25h42M8 8l34 34M42 8 8 42" stroke="#DC4633" stroke-width="2.5" stroke-linecap="round"/></svg>
           <div class="h-card-title">Reportes mensuales</div>
           <div class="h-card-text">Todos los meses compartimos un reporte con las <strong>métricas clave</strong> de la cuenta y recomendaciones accionables para el mes siguiente.</div>
         </div>
@@ -965,7 +1021,7 @@
 
   <!-- ══════ S11: PRÓXIMOS PASOS ══════ -->
   <div class="slide" id="s11">
-    <div class="slide-logo">DOOKU</div>
+    <div class="slide-logo"><img src="logo-dooku.png" alt="Dooku"></div>
     <div class="sc">
       <div class="anim" style="margin-bottom:1.4rem">
         <div class="label">Arrancamos cuando quieras</div>
@@ -1003,7 +1059,7 @@
 
       <div class="anim" style="margin-top:1.4rem;display:flex;align-items:center;gap:1.2rem">
         <div style="background:rgba(220,70,51,.1);border:1px solid rgba(220,70,51,.35);border-radius:10px;padding:.85rem 1.4rem;font-size:.88rem;color:var(--cream)">
-          📩 <strong>hola@dooku.com.ar</strong>
+          📩 <strong>info@dooku.com.ar</strong>
         </div>
         <div style="background:rgba(220,70,51,.1);border:1px solid rgba(220,70,51,.35);border-radius:10px;padding:.85rem 1.4rem;font-size:.88rem;color:var(--cream)">
           🌐 <strong>www.dooku.com.ar</strong>
@@ -1016,62 +1072,45 @@
   </div>
 
 
-  <!-- ══════ S12: QUOTE ══════ -->
+  <!-- ══════ S12: CIERRE ══════ -->
   <div class="slide" id="s12">
-    <div class="slide-logo">DOOKU</div>
-    <div style="flex:1;display:flex;align-items:center;justify-content:center;text-align:center">
-      <div class="anim">
-        <div class="quote-line">
-          El&nbsp;
-          <span style="position:relative;display:inline-block">futuro
-            <svg viewBox="0 0 150 60" width="150" style="position:absolute;top:-10px;left:-12px;pointer-events:none" fill="none">
-              <ellipse cx="75" cy="30" rx="72" ry="26" stroke="#C9B4D3" stroke-width="2" fill="none" stroke-dasharray="5 2" stroke-linecap="round"/>
-            </svg>
-          </span>
-          &nbsp;no está&nbsp;
-          <span style="position:relative;display:inline-block">escrito.
-            <svg viewBox="0 0 160 22" width="160" style="position:absolute;bottom:-4px;left:0;pointer-events:none" fill="none">
-              <path d="M8 11 L32 5 L152 17" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round"/>
-              <path d="M8 16 L32 10 L152 22" stroke="#DC4633" stroke-width="1.5" stroke-linecap="round" opacity=".6"/>
-            </svg>
-          </span>
-          &nbsp;<span class="q-hand">Aún.</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- ══════ S13: GRACIAS ══════ -->
-  <div class="slide" id="s13">
     <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
-      <div class="thanks-mark anim">DOOKU</div>
-      <div class="anim" style="position:relative;display:inline-block;margin-top:.5rem">
-        <svg viewBox="0 0 180 80" width="160" style="position:absolute;top:-70px;left:-30px;pointer-events:none" fill="none">
+
+      <!-- Logo + Gracias centrados -->
+      <div class="thanks-mark anim">
+        <img src="logo-dooku.png" alt="Dooku" style="width:clamp(200px,26vw,360px);height:auto;filter:invert(1);mix-blend-mode:screen;opacity:.95">
+      </div>
+      <div class="anim" style="position:relative;display:inline-block;margin-top:.6rem">
+        <svg viewBox="0 0 180 80" width="140" style="position:absolute;top:-65px;left:-25px;pointer-events:none" fill="none">
           <path d="M40 10 Q10 40 75 65" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round" fill="none"/>
           <path d="M68 70 L75 65 L70 57" stroke="#DC4633" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        <div class="thanks-word">Gracias</div>
+        <div class="thanks-word" style="font-size:clamp(2rem,4vw,3rem)">Gracias</div>
       </div>
-      <div class="anim" style="margin-top:2rem;font-size:.8rem;color:rgba(241,234,230,.3);letter-spacing:.06em">www.dooku.com.ar</div>
+
     </div>
+
+    <!-- Quote al pie, pequeño -->
+    <div class="anim" style="text-align:center;padding-bottom:3.5rem;font-size:clamp(.75rem,1.3vw,1rem);color:rgba(241,234,230,.4);letter-spacing:.03em">
+      El futuro no está escrito. <span style="font-family:'Caveat',cursive;color:var(--red);font-size:1.2em">Aún.</span>
+    </div>
+
   </div>
 
 </div>
 
 <!-- Nav -->
 <div id="navDots"></div>
-<div id="slideCounter">01 / 14</div>
+<div id="slideCounter">01 / 13</div>
 <div class="nav-arrows">
   <button class="nav-btn" id="prevBtn">‹</button>
   <button class="nav-btn" id="nextBtn">›</button>
 </div>
 
 <script>
-  const TOTAL = 14;
-  let cur = 0;
-
   const slides  = document.querySelectorAll('.slide');
+  const TOTAL = slides.length;
+  let cur = 0;
   const dotWrap = document.getElementById('navDots');
   const counter = document.getElementById('slideCounter');
   const bar     = document.getElementById('progress');
